@@ -6,17 +6,37 @@ input = sys.stdin.readline
 T = int(input())
 
 for _ in range(T):
-    p = list(map(str, input().rstrip('\n')))
+    p = input().rstrip()
     n = int(input())
-    x = input().rstrip(']\n').lstrip('[').split(',')
+
+    q = deque(input().rstrip()[1:-1].split(','))
+
+    cnt_r = 0
+    error = False
+
+    if (n == 0):
+        q = []
+
     for i in p:
         if i == 'R':
-            y = deque(list(reversed(x)))
-        if i == 'D':
-            y.popleft()
-    output = '[' + ','.join(map(str, y)) + ']'
-    if output:
-        print(output)
-    elif output == '[]':
-        print("error")
-            
+            cnt_r += 1
+        elif i == 'D':
+            if (q):
+                if (cnt_r % 2 == 1):
+                    q.pop()
+                
+                else:
+                    q.popleft()
+
+            else:
+                error = True
+                break
+    
+    if (error == True):
+        print('error')
+    else:
+        if (cnt_r % 2 == 1):
+            q.reverse()
+            print('[' + ','.join(q) + ']')
+        else:
+            print('[' + ','.join(q) + ']')
