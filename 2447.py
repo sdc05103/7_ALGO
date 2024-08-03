@@ -10,6 +10,8 @@ N = int(input())
 
 star = [[" " for _ in range(N)] for _ in range(N)]
 
+print(star)
+
 def recursion(x, y, size):
     if size == 1:
         star[y][x] = "*"
